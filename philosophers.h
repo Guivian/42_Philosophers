@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:20:27 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:46:23 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/09 10:28:21 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_forks{
-	pthread_mutex_t	*forks;
-}	t_forks;
-
 typedef struct s_args{
 	int				n_philo;
 	int				philo_id;
@@ -29,7 +25,9 @@ typedef struct s_args{
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_meals;
-	t_forks			forks;
+	pthread_t		*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	food_lock;
 }	t_args;
 
 //validate_args.c

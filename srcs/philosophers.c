@@ -6,11 +6,18 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:35:09 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:50:13 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:18:01 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+void	*test(void	*args)
+{
+	(void)args;
+	printf("Hello from thread");
+	return (NULL);
+}
 
 int	startup_philosophers(t_args *args)
 {
@@ -27,7 +34,7 @@ int	startup_philosophers(t_args *args)
 		pthread_mutex_init(&args->forks.forks[args->philo_id], NULL);
 	args->philo_id = -1;
 	while (++args->philo_id < args->n_philo)
-		pthread_create(&philosophers[args->philo_id], NULL, philos, (void *)&args);
+		pthread_create(&philosophers[args->philo_id], NULL, test, NULL);
 	args->philo_id = -1;
 	while (++args->philo_id < args->n_philo)
 		pthread_join(philosophers[args->n_philo], NULL);
@@ -36,11 +43,10 @@ int	startup_philosophers(t_args *args)
 
 void	*philos(void *args)
 {
-	printf("philo on\n");
 	t_args	*new_args;
 
 	new_args = (t_args *)args;
-	if (new_args->philo_id == 1)
+	if (new_args->philo_id == 1)	
 		usleep(new_args->time_to_sleep);
 	grab_fork(new_args, new_args->philo_id);
 	if (new_args->philo_id == 1)
