@@ -6,17 +6,17 @@
 #    By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 16:59:09 by lbarbosa          #+#    #+#              #
-#    Updated: 2022/09/08 18:32:11 by lbarbosa         ###   ########.fr        #
+#    Updated: 2022/09/16 10:04:55 by lbarbosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-FLAGS = -Wall -Wextra -Werror -g -lpthread -o
+FLAGS = -Wall -Wextra -Werror -g -pthread -o
 
 HEADERS = philosophers.h
 
-C_FILES = main.c srcs/validate_args.c srcs/convert_args.c 
+C_FILES = main.c srcs/validate_args.c srcs/convert_args.c srcs/philosophers.c
 
 all:$(NAME)
 

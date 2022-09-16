@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:20:27 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/09 10:28:21 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/16 15:03:25 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,28 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_args{
+typedef struct s_vars{
 	int				n_philo;
-	int				philo_id;
+	int				*philo_id;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_meals;
 	pthread_t		*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	food_lock;
-}	t_args;
+	pthread_mutex_t	test;
+}	t_vars;
 
 //validate_args.c
 int		validate_args(int argc, char **argv);
 int		check_valid_arg(char **str);
 
 //convert_args.c
-t_args	*convert_argv(char **argv);
+t_vars	*convert_argv(char **argv);
 int		char_to_int(char *str);
+void	fill_philo_ids(t_vars *vars);
 
 //philosophers.c
-int		startup_philosophers(t_args *args);
-void	*philos(void *args);
-void	grab_fork(t_args *args, int fork);
-void	lay_forks_down(t_args *args, int right, int left);
+void	thread_handling(t_vars *vars);
 
 #endif
