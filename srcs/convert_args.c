@@ -6,36 +6,40 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:39:23 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/16 15:36:04 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:37:51 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-t_vars	*convert_argv(char **argv)
+int	convert_argv(char **argv)
 {
-	t_vars	*args;
+	int	allocation;
 
-	args = malloc(sizeof(t_vars));
-	if (args == NULL)
-		return (NULL);
-	args->forks = malloc(sizeof(pthread_mutex_t) * char_to_int(argv[1]));
-	if (args->forks == NULL)
-		return (NULL);
-	args->philos = malloc(sizeof(pthread_t) * char_to_int(argv[1]));
-	if (args->philos == NULL)
-		return (NULL);
-	args->philo_id = malloc(sizeof(int) * char_to_int(argv[1]));
-	if (args->philo_id == NULL)
-		return (NULL);
-	args->n_philo = char_to_int(argv[1]);
-	args->time_to_die = char_to_int(argv[2]);
-	args->time_to_eat = char_to_int(argv[3]);
-	args->time_to_sleep = char_to_int(argv[4]);
+	allocation = 0;
+	init_struct();
+	vars()->forks = malloc(sizeof(pthread_mutex_t) * char_to_int(argv[1]));
+	if (vars()->forks == NULL)
+		allocation = -1;
+	vars()->philos = malloc(sizeof(pthread_t) * char_to_int(argv[1]));
+	if (vars()->philos == NULL)
+		allocation = -1;
+	vars()->philo_id = malloc(sizeof(int) * char_to_int(argv[1]));
+	if (vars()->philo_id == NULL)
+		allocation = -1;
+	if (allocation == -1)
+	{
+		write(1, "Error occured during memory allocation\n", 40);
+	}
+	vars()->n_philo = char_to_int(argv[1]);
+	vars()->time_to_die = char_to_int(argv[2]);
+	vars()->time_to_eat = char_to_int(argv[3]);
+	vars()->time_to_sleep = char_to_int(argv[4]);
 	if (argv[5])
-		args->n_meals = char_to_int(argv[5]);
-	//fill_philo_ids(args);
-	return (args);
+		vars()->n_meals = char_to_int(argv[5]);
+	if (validate_positive_numbers() == 0)
+		return (0);
+	return (1);
 }
 
 int	char_to_int(char *str)
@@ -50,11 +54,35 @@ int	char_to_int(char *str)
 	return (ret);
 }
 
-void	fill_philo_ids(t_vars *vars)
+int	validate_positive_numbers(void)
 {
-	int	i;
+	if (vars()->n_philo == 0 || \
+	vars()->time_to_die == 0 || \
+	vars()->time_to_eat == 0 || \
+	vars()->time_to_sleep == 0 || \
+	vars()->n_meals ==0)
+	{
+		write(1, "Invalid argument\nOnly positive numbers allowed\n", 48);
+		return (0);
+	}
+	return (1);
+}
 
-	i = -1;
-	while (++i < vars->n_philo)
-		vars->philo_id[i] = i + 1;
+void	init_struct(void)
+{
+	vars()->forks = NULL;
+	vars()->philos = NULL;
+	vars()->philo_id = NULL;
+	vars()->n_philo = 0;
+	vars()->time_to_die = 0;
+	vars()->time_to_eat = 0;
+	vars()->time_to_sleep = 0;
+	vars()->n_meals = 1;
+	vars()->start_time = 0;
+}
+
+t_vars	*vars(void)
+{
+	static t_vars	vars;
+	return (&vars);
 }

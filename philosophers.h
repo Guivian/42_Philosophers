@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:20:27 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/16 15:03:25 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:33:54 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ typedef struct s_vars{
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_meals;
+	long			start_time;
 	pthread_t		*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	test;
 }	t_vars;
 
 //validate_args.c
@@ -35,11 +35,16 @@ int		validate_args(int argc, char **argv);
 int		check_valid_arg(char **str);
 
 //convert_args.c
-t_vars	*convert_argv(char **argv);
+int		convert_argv(char **argv);
 int		char_to_int(char *str);
-void	fill_philo_ids(t_vars *vars);
+t_vars	*vars(void);
+void	init_struct(void);
+int	validate_positive_numbers(void);
 
 //philosophers.c
-void	thread_handling(t_vars *vars);
+void	thread_handling(void);
+
+//timestamps.c
+long	timestamp(void);
 
 #endif
