@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:27:28 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/16 20:28:18 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:06:53 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	check_valid_arg(char **argv)
 	while (argv[++i])
 	{
 		j = -1;
+		if (argv[i][0] == '+')
+			j = 0;
 		while (argv[i][++j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
