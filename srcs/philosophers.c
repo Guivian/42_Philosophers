@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:35:09 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/17 16:02:33 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/18 13:31:35 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@ void	*eat_or_die(void	*philo_id)
 		usleep(vars()->time_to_sleep * 1000);
 	while (1)
 	{
-		printf("Philosopher %i is thinking\n", i);
+		printf("%li %i is thinking\n", timestamp() - vars()->start_time, i);
 		pthread_mutex_lock(&vars()->forks[i]);
-		printf("Philosopher %i grabbed a fork\n", i);
+		//printf("%li %i grabbed a fork\n", timestamp() - vars()->start_time, i);
 		if (i == 1)
 		{
 			pthread_mutex_lock(&vars()->forks[i + 1]);
-			printf("Philosopher %i grabbed a fork\n", i);
+			//printf("%li %i grabbed a fork\n", timestamp() - vars()->start_time, i);
 		}
 		else
 		{
 			pthread_mutex_lock(&vars()->forks[i - 1]);
-			printf("Philosopher %i grabbed a fork\n", i);
+			//printf("%li %i grabbed a fork\n", timestamp() - vars()->start_time, i);
 		}
-		printf("Philosopher %i is eating\n", i);
+		printf("%li %i is eating\n", timestamp() - vars()->start_time, i);
 		usleep(vars()->time_to_eat * 1000);
 		pthread_mutex_unlock(&vars()->forks[i]);
 		if (i == 1)
 			pthread_mutex_unlock(&vars()->forks[i + 1]);
 		else
-			pthread_mutex_unlock(&vars()->forks[i]);
-		printf("Philosopher %i is sleeping\n", i);
+			pthread_mutex_unlock(&vars()->forks[i - 1]);
+		printf("%li %i is sleeping\n", timestamp() - vars()->start_time, i);
 		usleep(vars()->time_to_sleep * 1000);
 	}
 	return (NULL);
