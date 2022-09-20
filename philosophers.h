@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:20:27 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/16 20:33:54 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:02:45 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_vars{
 	long			start_time;
 	pthread_t		*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	code;
 }	t_vars;
 
 //validate_args.c
@@ -39,7 +40,7 @@ int		convert_argv(char **argv);
 int		char_to_int(char *str);
 t_vars	*vars(void);
 void	init_struct(void);
-int	validate_positive_numbers(void);
+int		validate_positive_numbers(void);
 
 //philosophers.c
 void	thread_handling(void);

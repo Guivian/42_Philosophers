@@ -6,13 +6,13 @@
 #    By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 16:59:09 by lbarbosa          #+#    #+#              #
-#    Updated: 2022/09/18 13:21:07 by lbarbosa         ###   ########.fr        #
+#    Updated: 2022/09/19 15:35:16 by lbarbosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-FLAGS = -Wall -Wextra -Werror -g -pthread -o
+FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread -o
 
 HEADERS = philosophers.h
 
