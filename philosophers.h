@@ -6,7 +6,7 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:20:27 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/19 18:02:45 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:56:30 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_vars{
 	long			start_time;
 	pthread_t		*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	code;
+	pthread_mutex_t	dead_or_alive;
 }	t_vars;
 
 //validate_args.c
