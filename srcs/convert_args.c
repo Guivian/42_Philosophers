@@ -6,13 +6,13 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:39:23 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/19 15:29:19 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:52:17 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	convert_argv(char **argv)
+void	convert_argv(char **argv)
 {
 	int	allocation;
 
@@ -30,6 +30,7 @@ int	convert_argv(char **argv)
 	if (allocation == -1)
 	{
 		write(1, "Error occured during memory allocation\n", 40);
+		exit(EXIT_FAILURE);
 	}
 	vars()->n_philo = char_to_int(argv[1]);
 	vars()->time_to_die = char_to_int(argv[2]);
@@ -37,9 +38,7 @@ int	convert_argv(char **argv)
 	vars()->time_to_sleep = char_to_int(argv[4]);
 	if (argv[5])
 		vars()->n_meals = char_to_int(argv[5]);
-	if (validate_positive_numbers() == 0)
-		return (0);
-	return (1);
+	validate_positive_numbers();
 }
 
 int	char_to_int(char *str)
@@ -54,18 +53,26 @@ int	char_to_int(char *str)
 	return (ret);
 }
 
-int	validate_positive_numbers(void)
+void	validate_positive_numbers(void)
 {
-	if (vars()->n_philo == 0 || \
-	vars()->time_to_die == 0 || \
-	vars()->time_to_eat == 0 || \
-	vars()->time_to_sleep == 0 || \
-	vars()->n_meals ==0)
+	if (vars()->n_philo < 1)
 	{
-		write(1, "Invalid argument\nOnly positive numbers allowed\n", 48);
-		return (0);
+		write(1, "Invalid argument\nPlease test with at least 1 philosopher\n", 58);
+		exit(EXIT_FAILURE);
 	}
-	return (1);
+	if (vars()->time_to_die < 60 || \
+	vars()->time_to_eat < 60 || \
+	vars()->time_to_sleep < 60)
+	{
+		write(1, "Invalid argument\nPlease test with at least 60ms\n", 48);
+		exit(EXIT_FAILURE);
+	}
+	if (vars()->n_meals < 1)
+	{
+		write(1, "Invalid argument\n", 18);
+		write(1, "If number_of_meals is specified, give it a value greater than 0\n", 65);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	init_struct(void)
@@ -84,5 +91,6 @@ void	init_struct(void)
 t_vars	*vars(void)
 {
 	static t_vars	vars;
+
 	return (&vars);
 }

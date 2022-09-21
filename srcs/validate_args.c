@@ -6,25 +6,23 @@
 /*   By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:27:28 by lbarbosa          #+#    #+#             */
-/*   Updated: 2022/09/17 16:06:53 by lbarbosa         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:55:11 by lbarbosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	validate_args(int argc, char **argv)
+void	validate_args(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
 		write(1, "Invalid number of arguments\n", 29);
-		return (0);
+		exit(EXIT_FAILURE);
 	}
-	if (check_valid_arg(argv) == 0)
-		return (0);
-	return (1);
+	check_valid_arg(argv);
 }
 
-int	check_valid_arg(char **argv)
+void	check_valid_arg(char **argv)
 {
 	int	i;
 	int	j;
@@ -40,9 +38,8 @@ int	check_valid_arg(char **argv)
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 			{
 				write(1, "Invalid argument\nOnly positive numbers allowed\n", 48);
-				return (0);
+				exit(EXIT_FAILURE);
 			}
 		}
 	}
-	return (1);
 }
