@@ -6,7 +6,7 @@
 #    By: lbarbosa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 16:59:09 by lbarbosa          #+#    #+#              #
-#    Updated: 2022/09/21 16:18:53 by lbarbosa         ###   ########.fr        #
+#    Updated: 2022/09/23 18:55:53 by lbarbosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread -o
 
 HEADERS = philosophers.h
 
-C_FILES = main.c srcs/validate_args.c srcs/convert_args.c srcs/philosophers.c srcs/time_management.c
+C_FILES = main.c srcs/validate_args.c srcs/convert_args.c srcs/philosophers.c srcs/utils.c srcs/structs.c srcs/time_management.c
 
 all:$(NAME)
 
